@@ -41,25 +41,25 @@ class Train:
         self.model = NeuralNet(input_size=self.INPUT_SIZE, hidden_size=self.HIDDEN_SIZE, output_size=self.OUTPUT_SIZE).to(self.device)
 
 
-    def _initialize_optimizer(self):
+    def _initialize_loss_and_optimizer(self):
         self.optimizer = Adam(self.model.parameters(), lr=self.LEARNING_RATE)
         self.criterion = CrossEntropyLoss()
 
     
 
     def train(self):
-        self._initialize_optimizer()
+        self._initialize_loss_and_optimizer()
         train_loader = DataLoader(self.data_set, batch_size=self.BATCH_SIZE, shuffle=self.SHUFFLE, num_workers=self.NUM_OF_WORKERS)
 
         for epoch in range(self.NUM_EPOCHS):
             for i, (x, y) in enumerate(train_loader):
                 x = x.to(self.device)
                 y = y.to(self.device)
-                self.optimizer.zero_grad()
+                self.optimizer.zero_grad() # clean up old gradients
                 outputs = self.model(x)
                 loss = self.criterion(outputs, y)
-                loss.backward()
-                self.optimizer.step()
+                loss.backward() # backpropagation
+                self.optimizer.step() # update weights
                 if i % 100 == 0:
                     print('Epoch: {}/{}.............'.format(epoch + 1, self.NUM_EPOCHS),
                           'Loss: {:.4f}'.format(loss.item()))

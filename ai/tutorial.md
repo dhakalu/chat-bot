@@ -54,9 +54,15 @@ In this stage we will manipulate the data we collected using `numpy` and `nltk`.
 
 ### Read the File
 
-### Tokenize and apply stemming
+### Tokenize
 
-### Hot Bags
+### Remove stop words
+
+### lemmatize
+
+### replace rare words
+
+### Hot Bags (One hot encoding)
 
 ### DataLoader (pytorch)
 
