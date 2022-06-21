@@ -22,6 +22,6 @@ venv.bak/
 pip-log.txt
 pip-delete-this-directory.txt
 
-# Flask stuff:
-instance/
-.webassets-cache
+# Builds
+build/
+dist/
